@@ -5,52 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Dashboard MeSketch')</title>
     <link rel="stylesheet" href="{{ asset('css/mesketch.css') }}">
+    <link rel="icon" href="{{ asset('site-assets/sm.png') }}">
 </head>
-<body>
-    <header class="app-topbar">
-        <div class="shell">
-            <a class="brand" href="{{ route('dashboard') }}">
-                <img src="{{ asset('site-assets/sm.png') }}" alt="MeSketch">
-                <span>Workspace MeSketch</span>
-            </a>
-            <div class="toolbar">
-                <span class="muted">{{ auth()->user()->name }} · {{ strtoupper(auth()->user()->role) }}</span>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="button ghost" type="submit">Keluar</button>
-                </form>
-            </div>
-        </div>
-    </header>
-    <main class="shell split">
+<body class="dashboard">
+    <div class="app-container">
         <aside class="sidebar">
-            <div class="brand">
+            <div class="sidebar-header">
                 <img src="{{ asset('site-assets/sm.png') }}" alt="MeSketch">
-                <span>Panel</span>
+                <span>MeSketch</span>
             </div>
-            <nav class="side-nav">
-                <a class="{{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
-                <a class="{{ request()->routeIs('bookings.*') ? 'active' : '' }}" href="{{ route('bookings.index') }}">Booking Saya</a>
+            
+            <nav class="sidebar-nav">
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                    Dashboard
+                </a>
+                <a class="nav-link {{ request()->routeIs('bookings.*') ? 'active' : '' }}" href="{{ route('bookings.index') }}">
+                    Booking Saya
+                </a>
+                
                 @if(auth()->user()->canManageContent())
-                    <a class="{{ request()->routeIs('manage.articles.*') ? 'active' : '' }}" href="{{ route('manage.articles.index') }}">Artikel</a>
+                    <div class="nav-group">Konten</div>
+                    <a class="nav-link {{ request()->routeIs('manage.articles.*') ? 'active' : '' }}" href="{{ route('manage.articles.index') }}">
+                        Kelola Artikel
+                    </a>
                 @endif
+
                 @if(auth()->user()->isAdmin())
-                    <a class="{{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}" href="{{ route('admin.testimonials.index') }}">Testimoni</a>
-                    <a class="{{ request()->routeIs('admin.staff.*') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">Staff</a>
-                    <a class="{{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}" href="{{ route('admin.bookings.index') }}">Kelola Booking</a>
+                    <div class="nav-group">Administrasi</div>
+                    <a class="nav-link {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}" href="{{ route('admin.testimonials.index') }}">
+                        Testimoni
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('admin.staff.*') ? 'active' : '' }}" href="{{ route('admin.staff.index') }}">
+                        Tim Staff
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}" href="{{ route('admin.bookings.index') }}">
+                        Kelola Booking
+                    </a>
                 @endif
-                <a href="{{ route('landing') }}">Lihat Website</a>
+
+                <div style="margin-top: auto; padding-bottom: 24px;">
+                    <a class="nav-link" href="{{ route('landing') }}" target="_blank">
+                        Lihat Website &nearr;
+                    </a>
+                </div>
             </nav>
         </aside>
-        <section class="workspace">
-            @if(session('status'))
-                <div class="notice success">{{ session('status') }}</div>
-            @endif
-            @if($errors->any())
-                <div class="notice error">{{ $errors->first() }}</div>
-            @endif
-            @yield('content')
-        </section>
-    </main>
+
+        <main class="main-content">
+            <header class="top-nav">
+                <div class="user-profile">
+                    <div class="user-name">
+                        <strong>{{ auth()->user()->name }}</strong>
+                        <span>{{ auth()->user()->role }}</span>
+                    </div>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="btn btn-outline" style="padding: 8px 12px;" type="submit">Logout</button>
+                    </form>
+                </div>
+            </header>
+
+            <div class="view-port">
+                @if(session('status'))
+                    <div class="notice-banner success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                
+                @if($errors->any())
+                    <div class="notice-banner error">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
+                @yield('content')
+            </div>
+        </main>
+    </div>
 </body>
 </html>

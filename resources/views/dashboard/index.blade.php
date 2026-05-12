@@ -1,33 +1,79 @@
 @extends('layouts.app')
+
 @section('title', 'Dashboard - MeSketch')
+
 @section('content')
-<div class="page-head">
-    <div><p class="kicker">Ringkasan</p><h2>Dashboard {{ $user->name }}</h2><p class="muted">Tampilan menyesuaikan role aktif.</p></div>
+<h2 class="h2">Halo, {{ explode(' ', auth()->user()->name)[0] }}! 👋</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <label>Total Booking</label>
+        <div class="value">{{ $metrics['bookings'] }}</div>
+    </div>
+
+    @if(!is_null($metrics['articles']))
+        <div class="stat-card">
+            <label>Artikel Terbit</label>
+            <div class="value">{{ $metrics['articles'] }}</div>
+        </div>
+    @endif
+
+    @if(!is_null($metrics['testimonials']))
+        <div class="stat-card">
+            <label>Testimoni</label>
+            <div class="value">{{ $metrics['testimonials'] }}</div>
+        </div>
+    @endif
+
+    @if(!is_null($metrics['staff']))
+        <div class="stat-card">
+            <label>Anggota Tim</label>
+            <div class="value">{{ $metrics['staff'] }}</div>
+        </div>
+    @endif
 </div>
-<div class="metric-grid">
-    <article class="metric"><span class="muted">Booking</span><strong>{{ $metrics['bookings'] }}</strong></article>
-    @if(!is_null($metrics['articles']))<article class="metric"><span class="muted">Artikel</span><strong>{{ $metrics['articles'] }}</strong></article>@endif
-    @if(!is_null($metrics['testimonials']))<article class="metric"><span class="muted">Testimoni</span><strong>{{ $metrics['testimonials'] }}</strong></article>@endif
-    @if(!is_null($metrics['staff']))<article class="metric"><span class="muted">Staff</span><strong>{{ $metrics['staff'] }}</strong></article>@endif
-</div>
-<div class="panel" style="margin-top:20px;">
-    <div class="section-head"><div><p class="kicker">Aktivitas</p><h3>Booking terbaru</h3></div></div>
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>Proyek</th><th>Pemilik</th><th>Tanggal</th><th>Status</th></tr></thead>
-            <tbody>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Booking Terbaru</h3>
+        <a href="{{ auth()->user()->isAdmin() ? route('admin.bookings.index') : route('bookings.index') }}" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Lihat Semua</a>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Proyek</th>
+                <th>Pemilik</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
             @forelse($latestBookings as $booking)
                 <tr>
-                    <td>{{ $booking->project_name }}</td>
-                    <td>{{ $booking->relationLoaded('user') ? $booking->user->name : $user->name }}</td>
+                    <td>
+                        <div style="font-weight: 700; color: var(--navy);">{{ $booking->project_name }}</div>
+                        <div style="font-size: 0.75rem; color: var(--muted);">ID: #{{ str_pad($booking->id, 5, '0', STR_PAD_LEFT) }}</div>
+                    </td>
+                    <td>
+                        <div style="font-weight: 600;">{{ $booking->relationLoaded('user') ? $booking->user->name : $user->name }}</div>
+                        <div style="font-size: 0.75rem; color: var(--muted);">{{ $booking->phone }}</div>
+                    </td>
                     <td>{{ $booking->booking_date->format('d M Y') }}</td>
-                    <td><span class="status {{ $booking->status }}">{{ strtoupper($booking->status) }}</span></td>
+                    <td>
+                        <span class="status-pill {{ $booking->status }}">
+                            {{ $booking->status == 'pending' ? 'Menunggu' : ($booking->status == 'finished' ? 'Selesai' : 'Dibatalkan') }}
+                        </span>
+                    </td>
                 </tr>
             @empty
-                <tr><td colspan="4">Belum ada booking.</td></tr>
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 60px; color: var(--muted);">
+                        Belum ada data booking terbaru.
+                    </td>
+                </tr>
             @endforelse
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>
 @endsection
