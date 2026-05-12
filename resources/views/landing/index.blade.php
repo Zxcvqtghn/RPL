@@ -13,10 +13,19 @@
                 <a class="inline-flex min-h-14 items-center justify-center rounded-full bg-accent px-8 font-display font-bold text-white shadow-rich transition hover:-translate-y-0.5 hover:bg-accent-strong" href="{{ route('register') }}">Mulai Konsultasi</a>
                 <a class="inline-flex min-h-14 items-center justify-center rounded-full border border-white/20 bg-white px-8 font-display font-bold text-ink transition hover:-translate-y-0.5 hover:bg-stone-100" href="#artikel">Lihat Wawasan</a>
             </div>
-            <div class="mt-12 grid gap-5 border-t border-white/15 pt-8 sm:grid-cols-3 sm:gap-8">
-                <div><strong class="block font-display text-3xl font-extrabold text-accent-soft">150+</strong><span class="mt-1 block text-sm font-bold uppercase tracking-[0.14em] text-white/65">Proyek Selesai</span></div>
-                <div><strong class="block font-display text-3xl font-extrabold text-accent-soft">100%</strong><span class="mt-1 block text-sm font-bold uppercase tracking-[0.14em] text-white/65">Kepuasan Klien</span></div>
-                <div><strong class="block font-display text-3xl font-extrabold text-accent-soft">24/7</strong><span class="mt-1 block text-sm font-bold uppercase tracking-[0.14em] text-white/65">Dukungan Tim</span></div>
+            <div class="mt-10 grid grid-cols-3 gap-3 border-t border-white/15 pt-6 text-center sm:mt-12 sm:gap-8 sm:pt-8 sm:text-left">
+                <div>
+                    <strong class="block font-display text-2xl font-extrabold text-accent-soft sm:text-3xl">150+</strong>
+                    <span class="mt-1 block text-[0.62rem] font-bold uppercase leading-4 tracking-[0.1em] text-white/65 sm:text-sm sm:tracking-[0.14em]">Proyek Selesai</span>
+                </div>
+                <div>
+                    <strong class="block font-display text-2xl font-extrabold text-accent-soft sm:text-3xl">100%</strong>
+                    <span class="mt-1 block text-[0.62rem] font-bold uppercase leading-4 tracking-[0.1em] text-white/65 sm:text-sm sm:tracking-[0.14em]">Kepuasan Klien</span>
+                </div>
+                <div>
+                    <strong class="block font-display text-2xl font-extrabold text-accent-soft sm:text-3xl">24/7</strong>
+                    <span class="mt-1 block text-[0.62rem] font-bold uppercase leading-4 tracking-[0.1em] text-white/65 sm:text-sm sm:tracking-[0.14em]">Dukungan Tim</span>
+                </div>
             </div>
         </div>
     </div>
