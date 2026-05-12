@@ -822,8 +822,9 @@ body.dashboard {
         url('/site-assets/hero-interior.png') center / cover;
 }
 
-.auth-shell-flush + .footer {
-    margin-top: 0;
+.auth-shell-flush {
+    padding-bottom: 0;
+    margin-bottom: -40px;
 }
 
 .auth-grid {
