@@ -30,8 +30,8 @@
                     @endauth
                 </nav>
 
-                <button id="mobile-menu-btn" class="lg:hidden p-2 text-navy focus:outline-none transition hover:text-accent-strong" aria-label="Buka menu">
-                    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden relative z-[100] cursor-pointer p-2 text-navy focus:outline-none transition hover:text-accent-strong" aria-label="Buka menu">
+                    <svg class="h-7 w-7 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
@@ -39,12 +39,12 @@
         </div>
     </header>
 
-    <div id="mobile-drawer-overlay" class="fixed inset-0 z-[60] bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none lg:hidden"></div>
+    <div id="mobile-drawer-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 z-[60] bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none lg:hidden"></div>
 
-    <div id="mobile-drawer" class="fixed inset-y-0 right-0 z-[70] w-full max-w-xs bg-white shadow-2xl transition-transform duration-300 translate-x-full lg:hidden flex flex-col">
+    <div id="mobile-drawer" class="fixed inset-y-0 right-0 z-[70] w-3/4 sm:w-80 bg-white shadow-2xl transform transition-transform duration-300 translate-x-full lg:hidden flex flex-col">
         <div class="flex items-center justify-between p-6 border-b border-slate-100">
             <span class="font-display text-lg font-extrabold text-navy">Menu</span>
-            <button id="close-menu-btn" class="p-2 text-slate-400 hover:text-navy focus:outline-none transition">
+            <button id="close-menu-btn" onclick="toggleMobileMenu()" class="p-2 text-slate-400 hover:text-navy focus:outline-none transition">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -52,9 +52,9 @@
         </div>
         <div class="flex-1 overflow-y-auto py-6 px-6 flex flex-col gap-6">
             <nav class="flex flex-col gap-4">
-                <a class="mobile-nav-link font-display text-lg font-bold text-navy hover:text-accent-strong" href="{{ route('landing') }}#layanan">Layanan</a>
-                <a class="mobile-nav-link font-display text-lg font-bold text-navy hover:text-accent-strong" href="{{ route('landing') }}#artikel">Artikel</a>
-                <a class="mobile-nav-link font-display text-lg font-bold text-navy hover:text-accent-strong" href="{{ route('landing') }}#testimoni">Testimoni</a>
+                <a class="mobile-nav-link font-display text-lg font-bold text-navy hover:text-accent-strong" onclick="toggleMobileMenu()" href="{{ route('landing') }}#layanan">Layanan</a>
+                <a class="mobile-nav-link font-display text-lg font-bold text-navy hover:text-accent-strong" onclick="toggleMobileMenu()" href="{{ route('landing') }}#artikel">Artikel</a>
+                <a class="mobile-nav-link font-display text-lg font-bold text-navy hover:text-accent-strong" onclick="toggleMobileMenu()" href="{{ route('landing') }}#testimoni">Testimoni</a>
             </nav>
             <div class="border-t border-slate-100 pt-6 flex flex-col gap-3">
                 @auth
@@ -104,36 +104,24 @@
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const btnOpen = document.getElementById('mobile-menu-btn');
-            const btnClose = document.getElementById('close-menu-btn');
+        window.toggleMobileMenu = function() {
             const drawer = document.getElementById('mobile-drawer');
             const overlay = document.getElementById('mobile-drawer-overlay');
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-
-            function toggleMenu() {
-                const isOpen = !drawer.classList.contains('translate-x-full');
-                if (isOpen) {
-                    drawer.classList.add('translate-x-full');
-                    overlay.classList.add('opacity-0', 'pointer-events-none');
-                    document.body.style.overflow = '';
-                } else {
-                    drawer.classList.remove('translate-x-full');
-                    overlay.classList.remove('opacity-0', 'pointer-events-none');
-                    document.body.style.overflow = 'hidden';
-                }
+            if (!drawer || !overlay) return;
+            
+            const isClosed = drawer.classList.contains('translate-x-full');
+            if (isClosed) {
+                drawer.classList.remove('translate-x-full');
+                drawer.classList.add('translate-x-0');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                document.body.classList.add('overflow-hidden');
+            } else {
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                document.body.classList.remove('overflow-hidden');
             }
-
-            if (btnOpen && btnClose && drawer && overlay) {
-                btnOpen.addEventListener('click', toggleMenu);
-                btnClose.addEventListener('click', toggleMenu);
-                overlay.addEventListener('click', toggleMenu);
-                
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', toggleMenu);
-                });
-            }
-        });
+        };
     </script>
 </body>
 </html>
