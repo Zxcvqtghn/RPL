@@ -22,11 +22,16 @@ class DashboardController extends Controller
                     : null,
                 'testimonials' => $user->isAdmin() ? Testimonial::count() : null,
                 'staff' => $user->isAdmin() ? User::whereIn('role', ['admin', 'writer'])->count() : null,
-                'bookings' => $user->isAdmin() ? Booking::count() : $user->bookings()->count(),
+                'bookings' => $user->isAdmin()
+                    ? Booking::count()
+                    : ($user->role === 'user' ? $user->bookings()->count() : null),
             ],
             'latestBookings' => $user->isAdmin()
                 ? Booking::with('user')->latest()->take(5)->get()
-                : $user->bookings()->latest()->take(5)->get(),
+                : ($user->role === 'user' ? $user->bookings()->latest()->take(5)->get() : collect()),
+            'latestArticles' => $user->canManageContent()
+                ? ($user->isAdmin() ? Article::with('author')->latest()->take(5)->get() : $user->articles()->latest()->take(5)->get())
+                : collect(),
         ]);
     }
 }

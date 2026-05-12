@@ -19,9 +19,12 @@
                 <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                     Dashboard
                 </a>
-                <a class="nav-link {{ request()->routeIs('bookings.*') ? 'active' : '' }}" href="{{ route('bookings.index') }}">
-                    Booking Saya
-                </a>
+
+                @if(auth()->user()->role === 'user')
+                    <a class="nav-link {{ request()->routeIs('bookings.*') ? 'active' : '' }}" href="{{ route('bookings.index') }}">
+                        Booking Saya
+                    </a>
+                @endif
                 
                 @if(auth()->user()->canManageContent())
                     <div class="nav-group">Konten</div>

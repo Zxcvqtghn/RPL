@@ -43,7 +43,7 @@
     </div>
 </section>
 
-<section id="artikel" class="shell section" style="background: var(--panel); border-radius: var(--radius-lg); margin-bottom: 120px; box-shadow: var(--shadow-sm);">
+<section id="artikel" class="shell section" style="background: var(--panel); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
     <div class="shell">
         <div class="section-head">
             <p class="kicker">Artikel & Wawasan</p>

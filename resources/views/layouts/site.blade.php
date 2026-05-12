@@ -35,17 +35,35 @@
     </main>
 
     <footer class="footer">
-        <div class="shell">
-            <div style="margin-bottom: 32px;">
-                <a class="brand" href="{{ route('landing') }}" style="justify-content: center; margin-bottom: 16px;">
+        <div class="shell footer-grid">
+            <div class="footer-brand">
+                <a class="brand" href="{{ route('landing') }}">
                     <img src="{{ asset('site-assets/sm.png') }}" alt="MeSketch">
                     <span>MeSketch</span>
                 </a>
-                <p style="max-width: 500px; margin: 0 auto;">Konsultasi desain interior dengan struktur kerja yang lebih terukur dan hasil yang memuaskan.</p>
+                <p>Konsultasi desain interior dengan alur kerja yang terukur, komunikasi jelas, dan hasil yang terasa personal.</p>
             </div>
-            <div style="border-top: 1px solid var(--line); padding-top: 32px; font-size: 0.9rem; opacity: 0.6;">
-                &copy; {{ date('Y') }} MeSketch Studio. All rights reserved.
+
+            <div class="footer-links">
+                <p class="footer-label">Navigasi</p>
+                <a href="{{ route('landing') }}#layanan">Layanan</a>
+                <a href="{{ route('landing') }}#artikel">Artikel</a>
+                <a href="{{ route('landing') }}#testimoni">Testimoni</a>
             </div>
+
+            <div class="footer-cta">
+                <p class="footer-label">Mulai proyek</p>
+                <h3>Rancang ruang dengan brief yang lebih jelas.</h3>
+                <div class="footer-actions">
+                    <a class="button" href="{{ route('register') }}">Daftar</a>
+                    <a class="button ghost" href="{{ route('login') }}">Masuk</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="shell footer-bottom">
+            <span>&copy; {{ date('Y') }} MeSketch Studio. All rights reserved.</span>
+            <span>Interior planning, consultation, and project tracking.</span>
         </div>
     </footer>
 </body>

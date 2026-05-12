@@ -1,7 +1,13 @@
 @extends('layouts.site')
 @section('title', $article->title.' - MeSketch')
 @section('content')
-<section class="shell section" style="padding-top:56px;">
+<section class="shell section article-detail">
+    <div class="article-toolbar">
+        <a class="article-back" href="{{ route('landing') }}#artikel">
+            <span aria-hidden="true">&larr;</span>
+            <span>Kembali ke daftar artikel</span>
+        </a>
+    </div>
     <div class="content-grid">
         <article class="panel">
             <p class="kicker">{{ $article->author->name }} · {{ optional($article->published_at)->format('d M Y') }}</p>

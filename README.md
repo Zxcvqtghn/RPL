@@ -6,7 +6,7 @@ MeSketch adalah platform konsultasi desain interior modern yang dibangun dengan 
 - **Premium Landing Page**: Desain modern dengan *glassmorphism navigation*, tipografi *Outfit*, dan animasi yang halus.
 - **Dynamic Content**: Artikel edukatif dan testimoni klien yang dikelola langsung dari database.
 - **Client Dashboard**: Area khusus klien untuk memantau progress proyek dan histori booking (Role: `user`).
-- **Management Panel**: CRUD artikel, testimoni, staff, dan pengelolaan status booking (Role: `admin`, `writer`).
+- **Management Panel**: CRUD artikel untuk `admin` dan `writer`, serta testimoni, staff, dan pengelolaan status booking khusus `admin`.
 - **Robust Tech Stack**: Laravel 13, MySQL/MariaDB, dan Vanilla CSS Design System.
 
 ---
