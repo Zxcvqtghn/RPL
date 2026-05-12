@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @section('title', $article->title.' - MeSketch')
 @section('content')
-<section class="px-4 pb-20 pt-32 sm:px-6 sm:pt-36 lg:px-8 lg:pb-28 lg:pt-40">
+<section class="px-4 pb-20 pt-48 sm:px-6 sm:pt-52 lg:px-8 lg:pb-28 lg:pt-40">
     <div class="mx-auto w-full max-w-7xl">
         <div class="mb-7">
         <a class="inline-flex min-h-12 items-center gap-3 rounded-full border border-slate-200 bg-white px-5 font-display font-extrabold text-navy shadow-soft transition hover:-translate-y-0.5 hover:border-navy hover:bg-navy hover:text-white" href="{{ route('landing') }}#artikel">

@@ -2,7 +2,7 @@
 @section('title', 'Daftar - MeSketch')
 @section('footer_class', 'mt-0')
 @section('content')
-<section class="relative isolate overflow-hidden bg-navy px-4 pb-20 pt-32 text-white sm:px-6 sm:pt-36 lg:px-8 lg:pb-24 lg:pt-40">
+<section class="relative isolate overflow-hidden bg-navy px-4 pb-20 pt-48 text-white sm:px-6 sm:pt-52 lg:px-8 lg:pb-24 lg:pt-40">
     <img class="absolute inset-0 -z-20 h-full w-full object-cover opacity-35" src="{{ asset('site-assets/hero-interior.png') }}" alt="">
     <div class="absolute inset-0 -z-10 bg-gradient-to-br from-slate-950/95 via-slate-900/85 to-slate-900/40"></div>
     <div class="mx-auto grid min-h-[calc(100vh-10rem)] w-full max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,34rem)] lg:gap-16">

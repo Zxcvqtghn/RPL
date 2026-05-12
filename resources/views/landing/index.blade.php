@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @section('title', 'MeSketch - Konsultan Desain Interior Premium')
 @section('content')
-<section class="relative isolate min-h-screen overflow-hidden bg-navy px-4 pt-32 text-white sm:px-6 sm:pt-36 lg:px-8 lg:pt-40">
+<section class="relative isolate min-h-screen overflow-hidden bg-navy px-4 pt-48 text-white sm:px-6 sm:pt-52 lg:px-8 lg:pt-40">
     <img class="absolute inset-0 -z-20 h-full w-full object-cover opacity-40" src="{{ asset('site-assets/hero-interior.png') }}" alt="">
     <div class="absolute inset-0 -z-10 bg-gradient-to-br from-slate-950/95 via-slate-900/80 to-slate-900/30"></div>
     <div class="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl items-center py-14 lg:py-20">
