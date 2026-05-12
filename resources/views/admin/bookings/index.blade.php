@@ -1,65 +1,9 @@
 @extends('layouts.app')
-
 @section('title', 'Kelola Booking - MeSketch')
-
 @section('content')
-<h2 class="h2">Manajemen Booking Klien</h2>
-
-<div class="card">
-    <div class="card-header">
-        <div>
-            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--navy);">Seluruh Antrian Konsultasi</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Pantau dan ubah status pengajuan desain dari semua klien.</p>
-        </div>
-    </div>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Detail Klien</th>
-                <th>Detail Proyek</th>
-                <th>Tanggal Rencana</th>
-                <th style="width: 300px;">Status & Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($bookings as $booking)
-                <tr>
-                    <td>
-                        <div style="font-weight: 700; color: var(--navy);">{{ $booking->user->name }}</div>
-                        <div style="font-size: 0.8rem; color: var(--muted);">{{ $booking->user->email }}</div>
-                        <div style="font-size: 0.8rem; color: var(--muted);">{{ $booking->phone }}</div>
-                    </td>
-                    <td>
-                        <div style="font-weight: 700; color: var(--navy);">{{ $booking->project_name }}</div>
-                        <div style="font-size: 0.8rem; color: var(--muted); max-width: 250px;">{{ $booking->address }}</div>
-                    </td>
-                    <td>
-                        <div style="font-weight: 600;">{{ $booking->booking_date->format('d M Y') }}</div>
-                        <div style="font-size: 0.75rem; color: var(--muted);">Dipesan: {{ $booking->created_at->diffForHumans() }}</div>
-                    </td>
-                    <td>
-                        <form action="{{ route('admin.bookings.update', $booking) }}" method="POST" style="display: flex; gap: 8px;">
-                            @csrf @method('PATCH')
-                            <select name="status" style="padding: 8px; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border); background: #f8fafc; flex: 1;">
-                                @foreach(['pending' => 'Pending / Menunggu', 'finished' => 'Finished / Selesai', 'canceled' => 'Canceled / Batal'] as $value => $label)
-                                    <option value="{{ $value }}" @selected($booking->status === $value)>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-primary" style="padding: 8px 12px; font-size: 0.8rem;">
-                                Simpan
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 80px; color: var(--muted);">
-                        Belum ada antrian booking klien saat ini.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+<h2 class="mb-8 font-display text-3xl font-extrabold text-navy sm:text-4xl">Manajemen Booking Klien</h2>
+<section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+    <div class="border-b border-slate-200 px-5 py-5 sm:px-7"><h3 class="font-display text-xl font-extrabold text-navy">Seluruh Antrian Konsultasi</h3><p class="mt-1 text-sm text-muted">Pantau dan ubah status pengajuan desain dari semua klien.</p></div>
+    <div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-slate-50 text-xs font-extrabold uppercase tracking-[0.14em] text-muted"><tr><th class="px-5 py-4 sm:px-7">Detail Klien</th><th class="px-5 py-4">Detail Proyek</th><th class="px-5 py-4">Tanggal Rencana</th><th class="px-5 py-4 sm:px-7">Status & Aksi</th></tr></thead><tbody class="divide-y divide-slate-100">@forelse($bookings as $booking)<tr><td class="px-5 py-5 sm:px-7"><div class="font-bold text-navy">{{ $booking->user->name }}</div><div class="mt-1 text-xs text-muted">{{ $booking->user->email }}</div><div class="mt-1 text-xs text-muted">{{ $booking->phone }}</div></td><td class="px-5 py-5"><div class="font-bold text-navy">{{ $booking->project_name }}</div><div class="mt-1 max-w-xs text-xs leading-6 text-muted">{{ $booking->address }}</div></td><td class="px-5 py-5"><div class="font-semibold">{{ $booking->booking_date->format('d M Y') }}</div><div class="mt-1 text-xs text-muted">Dipesan: {{ $booking->created_at->diffForHumans() }}</div></td><td class="px-5 py-5 sm:px-7"><form action="{{ route('admin.bookings.update', $booking) }}" method="POST" class="flex min-w-72 flex-col gap-2 sm:flex-row">@csrf @method('PATCH')<select name="status" class="min-h-11 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm outline-none transition focus:border-accent focus:ring-4 focus:ring-accent/15">@foreach(['pending' => 'Pending / Menunggu', 'finished' => 'Finished / Selesai', 'canceled' => 'Canceled / Batal'] as $value => $label)<option value="{{ $value }}" @selected($booking->status === $value)>{{ $label }}</option>@endforeach</select><button type="submit" class="inline-flex min-h-11 items-center justify-center rounded-xl bg-accent px-4 text-sm font-bold text-white transition hover:bg-accent-strong">Simpan</button></form></td></tr>@empty<tr><td colspan="4" class="px-5 py-16 text-center text-muted">Belum ada antrian booking klien saat ini.</td></tr>@endforelse</tbody></table></div>
+</section>
 @endsection

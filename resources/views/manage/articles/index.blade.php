@@ -1,68 +1,28 @@
 @extends('layouts.app')
-
 @section('title', 'Kelola Artikel - MeSketch')
-
 @section('content')
-<h2 class="h2">Kelola Konten Artikel</h2>
-
-<div class="card">
-    <div class="card-header">
-        <div>
-            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--navy);">Editorial Blog & Wawasan</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Publikasikan artikel inspiratif untuk klien MeSketch Studio.</p>
-        </div>
-        <a href="{{ route('manage.articles.create') }}" class="btn btn-primary">
-            + Buat Artikel Baru
-        </a>
+<h2 class="mb-8 font-display text-3xl font-extrabold text-navy sm:text-4xl">Kelola Konten Artikel</h2>
+<section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+    <div class="flex flex-col gap-4 border-b border-slate-200 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+        <div><h3 class="font-display text-xl font-extrabold text-navy">Editorial Blog & Wawasan</h3><p class="mt-1 text-sm text-muted">Publikasikan artikel inspiratif untuk klien MeSketch Studio.</p></div>
+        <a href="{{ route('manage.articles.create') }}" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-accent px-5 font-display font-bold text-white transition hover:-translate-y-0.5 hover:bg-accent-strong">+ Buat Artikel Baru</a>
     </div>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Judul Artikel</th>
-                <th>Penulis</th>
-                <th>Status / Tanggal</th>
-                <th style="text-align: right;">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($articles as $article)
-                <tr>
-                    <td>
-                        <div style="font-weight: 700; color: var(--navy); max-width: 450px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                            {{ $article->title }}
-                        </div>
-                        <div style="font-size: 0.75rem; color: var(--muted);">Slug: {{ $article->slug }}</div>
-                    </td>
-                    <td>
-                        <div style="font-weight: 600;">{{ $article->author->name }}</div>
-                    </td>
-                    <td>
-                        @if($article->published_at)
-                            <div style="font-weight: 600; color: var(--ink);">{{ $article->published_at->format('d M Y') }}</div>
-                            <div style="font-size: 0.75rem; color: var(--muted);">Terbit</div>
-                        @else
-                            <span class="status-pill pending">Draft</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                            <a href="{{ route('manage.articles.edit', $article) }}" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Edit</a>
-                            <form action="{{ route('manage.articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Hapus artikel ini?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; color: #ef4444;">Hapus</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 60px; color: var(--muted);">
-                        Belum ada artikel yang dibuat.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-left text-sm">
+            <thead class="bg-slate-50 text-xs font-extrabold uppercase tracking-[0.14em] text-muted"><tr><th class="px-5 py-4 sm:px-7">Judul Artikel</th><th class="px-5 py-4">Penulis</th><th class="px-5 py-4">Status / Tanggal</th><th class="px-5 py-4 text-right sm:px-7">Aksi</th></tr></thead>
+            <tbody class="divide-y divide-slate-100">
+                @forelse($articles as $article)
+                    <tr>
+                        <td class="px-5 py-5 sm:px-7"><div class="max-w-md truncate font-bold text-navy">{{ $article->title }}</div><div class="mt-1 text-xs text-muted">Slug: {{ $article->slug }}</div></td>
+                        <td class="px-5 py-5 font-semibold">{{ $article->author->name }}</td>
+                        <td class="px-5 py-5">@if($article->published_at)<div class="font-semibold text-ink">{{ $article->published_at->format('d M Y') }}</div><div class="mt-1 text-xs text-muted">Terbit</div>@else<span class="inline-flex rounded-full bg-orange-100 px-3 py-1 text-xs font-extrabold uppercase text-orange-800">Draft</span>@endif</td>
+                        <td class="px-5 py-5 sm:px-7"><div class="flex justify-end gap-2"><a href="{{ route('manage.articles.edit', $article) }}" class="inline-flex min-h-9 items-center justify-center rounded-xl border border-slate-200 px-3 text-xs font-bold transition hover:bg-slate-50">Edit</a><form action="{{ route('manage.articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Hapus artikel ini?')">@csrf @method('DELETE')<button type="submit" class="inline-flex min-h-9 items-center justify-center rounded-xl border border-rose-200 px-3 text-xs font-bold text-rose-700 transition hover:bg-rose-50">Hapus</button></form></div></td>
+                    </tr>
+                @empty
+                    <tr><td colspan="4" class="px-5 py-14 text-center text-muted">Belum ada artikel yang dibuat.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</section>
 @endsection

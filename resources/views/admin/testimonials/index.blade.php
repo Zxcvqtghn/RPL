@@ -1,69 +1,12 @@
 @extends('layouts.app')
-
 @section('title', 'Kelola Testimoni - MeSketch')
-
 @section('content')
-<h2 class="h2">Kelola Testimoni</h2>
-
-<div class="card">
-    <div class="card-header">
-        <div>
-            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--navy);">Daftar Testimoni Klien</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Kelola testimoni yang akan ditampilkan di halaman depan.</p>
-        </div>
-        <a href="{{ route('admin.testimonials.create') }}" class="btn btn-primary">
-            + Tambah Testimoni
-        </a>
+<h2 class="mb-8 font-display text-3xl font-extrabold text-navy sm:text-4xl">Kelola Testimoni</h2>
+<section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+    <div class="flex flex-col gap-4 border-b border-slate-200 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+        <div><h3 class="font-display text-xl font-extrabold text-navy">Daftar Testimoni Klien</h3><p class="mt-1 text-sm text-muted">Kelola testimoni yang akan ditampilkan di halaman depan.</p></div>
+        <a href="{{ route('admin.testimonials.create') }}" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-accent px-5 font-display font-bold text-white transition hover:-translate-y-0.5 hover:bg-accent-strong">+ Tambah Testimoni</a>
     </div>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nama Klien</th>
-                <th>Label Peran</th>
-                <th>Rating</th>
-                <th>Status Tampil</th>
-                <th style="text-align: right;">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($testimonials as $testimonial)
-                <tr>
-                    <td>
-                        <div style="font-weight: 700; color: var(--navy);">{{ $testimonial->name }}</div>
-                        <div style="font-size: 0.8rem; color: var(--muted); max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                            "{{ $testimonial->message }}"
-                        </div>
-                    </td>
-                    <td>{{ $testimonial->role_label }}</td>
-                    <td>
-                        <div style="color: #fbbf24; font-weight: 800;">
-                            {{ str_repeat('★', $testimonial->rating) }}{{ str_repeat('☆', 5 - $testimonial->rating) }}
-                        </div>
-                    </td>
-                    <td>
-                        <span class="status-pill {{ $testimonial->is_featured ? 'finished' : 'pending' }}">
-                            {{ $testimonial->is_featured ? 'Unggulan' : 'Standar' }}
-                        </span>
-                    </td>
-                    <td>
-                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                            <a href="{{ route('admin.testimonials.edit', $testimonial) }}" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Edit</a>
-                            <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" onsubmit="return confirm('Hapus testimoni ini?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; color: #ef4444;">Hapus</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 60px; color: var(--muted);">
-                        Belum ada testimoni yang ditambahkan.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+    <div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-slate-50 text-xs font-extrabold uppercase tracking-[0.14em] text-muted"><tr><th class="px-5 py-4 sm:px-7">Nama Klien</th><th class="px-5 py-4">Label Peran</th><th class="px-5 py-4">Rating</th><th class="px-5 py-4">Status Tampil</th><th class="px-5 py-4 text-right sm:px-7">Aksi</th></tr></thead><tbody class="divide-y divide-slate-100">@forelse($testimonials as $testimonial)<tr><td class="px-5 py-5 sm:px-7"><div class="font-bold text-navy">{{ $testimonial->name }}</div><div class="mt-1 max-w-xs truncate text-xs text-muted">"{{ $testimonial->message }}"</div></td><td class="px-5 py-5">{{ $testimonial->role_label }}</td><td class="px-5 py-5 font-extrabold text-amber-400">{{ str_repeat('★', $testimonial->rating) }}{{ str_repeat('☆', 5 - $testimonial->rating) }}</td><td class="px-5 py-5"><span class="inline-flex rounded-full px-3 py-1 text-xs font-extrabold uppercase {{ $testimonial->is_featured ? 'bg-emerald-100 text-emerald-800' : 'bg-orange-100 text-orange-800' }}">{{ $testimonial->is_featured ? 'Unggulan' : 'Standar' }}</span></td><td class="px-5 py-5 sm:px-7"><div class="flex justify-end gap-2"><a href="{{ route('admin.testimonials.edit', $testimonial) }}" class="inline-flex min-h-9 items-center justify-center rounded-xl border border-slate-200 px-3 text-xs font-bold transition hover:bg-slate-50">Edit</a><form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" onsubmit="return confirm('Hapus testimoni ini?')">@csrf @method('DELETE')<button type="submit" class="inline-flex min-h-9 items-center justify-center rounded-xl border border-rose-200 px-3 text-xs font-bold text-rose-700 transition hover:bg-rose-50">Hapus</button></form></div></td></tr>@empty<tr><td colspan="5" class="px-5 py-14 text-center text-muted">Belum ada testimoni yang ditambahkan.</td></tr>@endforelse</tbody></table></div>
+</section>
 @endsection

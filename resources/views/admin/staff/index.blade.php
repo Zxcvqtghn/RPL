@@ -1,65 +1,12 @@
 @extends('layouts.app')
-
 @section('title', 'Kelola Staff - MeSketch')
-
 @section('content')
-<h2 class="h2">Manajemen Tim Staff</h2>
-
-<div class="card">
-    <div class="card-header">
-        <div>
-            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--navy);">Daftar Anggota Tim</h3>
-            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Kelola akun admin dan penulis untuk MeSketch Studio.</p>
-        </div>
-        <a href="{{ route('admin.staff.create') }}" class="btn btn-primary">
-            + Tambah Anggota
-        </a>
+<h2 class="mb-8 font-display text-3xl font-extrabold text-navy sm:text-4xl">Manajemen Tim Staff</h2>
+<section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft">
+    <div class="flex flex-col gap-4 border-b border-slate-200 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+        <div><h3 class="font-display text-xl font-extrabold text-navy">Daftar Anggota Tim</h3><p class="mt-1 text-sm text-muted">Kelola akun admin dan penulis untuk MeSketch Studio.</p></div>
+        <a href="{{ route('admin.staff.create') }}" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-accent px-5 font-display font-bold text-white transition hover:-translate-y-0.5 hover:bg-accent-strong">+ Tambah Anggota</a>
     </div>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nama Anggota</th>
-                <th>Alamat Email</th>
-                <th>Telepon</th>
-                <th>Peran / Akses</th>
-                <th style="text-align: right;">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($staff as $member)
-                <tr>
-                    <td>
-                        <div style="font-weight: 700; color: var(--navy);">{{ $member->name }}</div>
-                        <div style="font-size: 0.75rem; color: var(--muted);">Dibuat pada: {{ $member->created_at->format('d M Y') }}</div>
-                    </td>
-                    <td>{{ $member->email }}</td>
-                    <td>{{ $member->phone ?: '-' }}</td>
-                    <td>
-                        <span class="status-pill {{ $member->role == 'admin' ? 'finished' : 'pending' }}" style="font-size: 0.65rem;">
-                            {{ strtoupper($member->role) }}
-                        </span>
-                    </td>
-                    <td>
-                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                            <a href="{{ route('admin.staff.edit', $member) }}" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Edit</a>
-                            @if(auth()->id() !== $member->id)
-                                <form action="{{ route('admin.staff.destroy', $member) }}" method="POST" onsubmit="return confirm('Hapus anggota tim ini?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; color: #ef4444;">Hapus</button>
-                                </form>
-                            @endif
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 60px; color: var(--muted);">
-                        Belum ada anggota tim selain kamu.
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+    <div class="overflow-x-auto"><table class="min-w-full text-left text-sm"><thead class="bg-slate-50 text-xs font-extrabold uppercase tracking-[0.14em] text-muted"><tr><th class="px-5 py-4 sm:px-7">Nama Anggota</th><th class="px-5 py-4">Alamat Email</th><th class="px-5 py-4">Telepon</th><th class="px-5 py-4">Peran / Akses</th><th class="px-5 py-4 text-right sm:px-7">Aksi</th></tr></thead><tbody class="divide-y divide-slate-100">@forelse($staff as $member)<tr><td class="px-5 py-5 sm:px-7"><div class="font-bold text-navy">{{ $member->name }}</div><div class="mt-1 text-xs text-muted">Dibuat pada: {{ $member->created_at->format('d M Y') }}</div></td><td class="px-5 py-5">{{ $member->email }}</td><td class="px-5 py-5">{{ $member->phone ?: '-' }}</td><td class="px-5 py-5"><span class="inline-flex rounded-full px-3 py-1 text-xs font-extrabold uppercase {{ $member->role == 'admin' ? 'bg-emerald-100 text-emerald-800' : 'bg-orange-100 text-orange-800' }}">{{ strtoupper($member->role) }}</span></td><td class="px-5 py-5 sm:px-7"><div class="flex justify-end gap-2"><a href="{{ route('admin.staff.edit', $member) }}" class="inline-flex min-h-9 items-center justify-center rounded-xl border border-slate-200 px-3 text-xs font-bold transition hover:bg-slate-50">Edit</a>@if(auth()->id() !== $member->id)<form action="{{ route('admin.staff.destroy', $member) }}" method="POST" onsubmit="return confirm('Hapus anggota tim ini?')">@csrf @method('DELETE')<button type="submit" class="inline-flex min-h-9 items-center justify-center rounded-xl border border-rose-200 px-3 text-xs font-bold text-rose-700 transition hover:bg-rose-50">Hapus</button></form>@endif</div></td></tr>@empty<tr><td colspan="5" class="px-5 py-14 text-center text-muted">Belum ada anggota tim selain kamu.</td></tr>@endforelse</tbody></table></div>
+</section>
 @endsection
