@@ -9,7 +9,7 @@
 </head>
 <body class="min-h-screen bg-paper text-ink">
     <header class="fixed inset-x-0 top-3 z-50 px-4 sm:top-6 sm:px-6">
-        <div class="mx-auto w-full max-w-7xl rounded-3xl border border-white/60 bg-white/85 px-4 py-3 shadow-soft backdrop-blur-xl sm:px-6 lg:px-8 relative z-50">
+        <div class="relative z-50 mx-auto w-full max-w-7xl rounded-3xl border border-white/60 bg-white/85 px-4 py-3 shadow-soft backdrop-blur-xl sm:px-6 lg:px-8">
             <div class="flex min-h-14 items-center justify-between gap-4">
                 <a class="flex items-center gap-3 font-display text-xl font-extrabold text-navy" href="{{ route('landing') }}">
                     <img class="h-10 w-10 object-contain" src="{{ asset('site-assets/sm.png') }}" alt="MeSketch">

@@ -1,10 +1,10 @@
 @extends('layouts.site')
 @section('title', 'MeSketch - Konsultan Desain Interior Premium')
 @section('content')
-<section class="relative isolate min-h-screen overflow-hidden bg-navy px-4 pt-48 text-white sm:px-6 sm:pt-52 lg:px-8 lg:pt-40">
+<section class="relative isolate flex min-h-screen overflow-hidden bg-navy px-4 pb-20 pt-[13rem] text-white sm:px-6 sm:pt-[14rem] lg:min-h-screen lg:px-8 lg:pb-24 lg:pt-[11rem]">
     <img class="absolute inset-0 -z-20 h-full w-full object-cover opacity-40" src="{{ asset('site-assets/hero-interior.png') }}" alt="">
     <div class="absolute inset-0 -z-10 bg-gradient-to-br from-slate-950/95 via-slate-900/80 to-slate-900/30"></div>
-    <div class="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-7xl items-center py-14 lg:py-20">
+    <div class="mx-auto flex min-h-[calc(100vh-18rem)] w-full max-w-7xl flex-col justify-center sm:min-h-[calc(100vh-19rem)] lg:min-h-[calc(100vh-17rem)]">
         <div class="max-w-4xl">
             <p class="mb-6 font-display text-sm font-extrabold uppercase tracking-[0.22em] text-accent-soft">Elevating Modern Living</p>
             <h1 class="max-w-5xl font-display text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-8xl">Desain Interior Berkelas & Terukur</h1>

@@ -522,7 +522,9 @@ h2 {
     .hero-copy .lead { font-size: 1.1rem; margin-bottom: 32px; }
     .inline-actions { gap: 12px; }
     .inline-actions .button { width: 100%; min-height: 48px; }
-    .stat-strip { flex-direction: column; gap: 24px; }
+    .stat-strip { flex-direction: row; justify-content: space-between; gap: 12px; }
+    .stat-strip strong { font-size: 1.25rem; }
+    .stat-strip span { font-size: 0.75rem; }
     .section { padding: 64px 0; }
     .footer { padding: 64px 0 28px; }
     .footer-grid { grid-template-columns: 1fr; gap: 36px; }
