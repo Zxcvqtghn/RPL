@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @section('title', 'Daftar - MeSketch')
 @section('content')
-<section class="auth-shell">
+<section class="auth-shell auth-shell-flush">
     <div class="shell auth-grid">
         <aside class="auth-copy">
             <p class="kicker">Akun klien</p>
